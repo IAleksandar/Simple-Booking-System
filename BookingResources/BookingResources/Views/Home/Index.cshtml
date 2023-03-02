@@ -1,0 +1,53 @@
+﻿@model ResourceViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+<div id="modal-placeholder" class="hidden"></div>
+<div class="text-center">
+    <h2>Welcome to our site, please proceed with booking a resource</h2>
+</div>
+<br /><br />
+<div class="text-center">
+    <table class="table table-striped">
+        <thead class="">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Resource Name</th>
+                <th scope="col">Total Quantity</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(Domain.Resource r in Model.Resources)
+            {
+                <tr>
+                    <td>@r.Id</td>
+                    <td>@r.Name</td>
+                    <td>@r.Quantity</td>
+                    <td>
+                        <button class="btn btn-success" type="button" data-toggle="ajax-modal" data-target="#bookingBox" data-url="@Url.Action("BookResource", "Home", new{Id = r.Id})">
+                            Book now...
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div id="error" style="display: none;">@Model.Message</div>
+
+
+
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+<script>
+    var error = document.getElementById("error").innerHTML;
+    if (error != "") {
+        alert(error);
+    }
+    console.log(error.includes("successfully"));
+    if (error.includes("successfully")==true) {
+        var id = error.split(":")[1].split(" ")[0];
+        console.log("Email sent to admin@admin.com for creating booking with Id " + id);
+    }
+</script>

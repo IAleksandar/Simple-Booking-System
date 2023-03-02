@@ -1,0 +1,45 @@
+﻿@model Domain.Booking
+@{
+    ViewData["Title"] = "Booking";
+    var resource = ViewBag.Resource;
+}
+
+<div id="bookingBox" class="modal-wrapper-overlay">
+    <div class="modal-wrapper">
+        <div class="booking-wrapper" tabindex="-1" role="dialog" aria-labelledby="bookingLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="booking-content" role="document">
+                <div>
+                    <form asp-controller="Home" asp-action="BookResource" method="post">
+                        <div class="modal-header">
+                            <button type="button" class="close-modal" aria-label="Close">
+                                <span aria-hidden="true">x</span>
+                            </button>
+                            <h5 class="modal-title">Book Resource @resource </h5>
+                        </div>
+                        <div class="booking-body align-center">
+                            <div class="container" style="margin-top: 30px; display:none;">
+                               <input asp-for="ResourceId" type="text" value="@resource">
+                           </div>
+                           <div class="container" style="margin-top: 30px;">
+                               <input asp-for="DateFrom" type="text" class="form-control datepicker" id="datepicker-from" style="width: 500px;" placeholder="Date From:" >
+                           </div>
+                           <div class="container" style="margin-top: 30px;">
+                                <input asp-for="DateTo" type="text" class="form-control datepicker" id="datepicker-to" style="width: 500px;" placeholder="Date To:">
+                           </div>
+                           <div class="container" style="margin-top:30px; width:160px;">
+                                <input asp-for="BookedQuantity" type="number" value="1" min="1" step="1" />
+                           </div>
+                           <div class="container" style="margin-top:30px; width:160px;">
+                               <input type="submit" class="btn btn-success" style="width: 100%;" value="Book">
+                           </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="~/js/site.js" asp-append-version="true"></script>
